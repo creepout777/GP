@@ -1,0 +1,2 @@
+-- database.sql
+-- Script SQL pour créer les tables 'utilisateurs' et 'taches'
