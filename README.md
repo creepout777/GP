@@ -40,6 +40,15 @@ Elle a été développée dans le cadre d’un projet de classe afin de mettre e
 
 ---
 
+## 📊 Diagramme UML  
+
+Voici le diagramme UML du projet :  
+
+![Diagramme de classe](./Diagramme_de_Classe.png)
+
+
+---
+
 ## 👨‍💻 Contributeurs  
 
 👥 **Équipe du projet :**  
