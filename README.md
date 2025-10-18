@@ -7,7 +7,7 @@
 
 Ce projet est une application web de **gestion de tâches (CRUD)** permettant d’ajouter, modifier, supprimer et afficher des tâches.  
 
-Elle a été développée dans le cadre d’un projet de classe afin de mettre en pratique la programmation web côté client et serveur.  
+Elle a été développée dans le cadre d’un projet de classe afin de mettre en pratique la programmation et la gestion des projets.  
 
 
 ---
