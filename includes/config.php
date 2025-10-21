@@ -1,9 +1,8 @@
 <?php
 // config.php
 // Configurez ici votre connexion à la base de données avec PDO
-<?php
 $host = 'localhost';
-$db   = 'gestion_de_taches';
+$db   = 'gestion_taches';
 $user = 'root';
 $pass = '';
 $charset = 'utf8mb4';
@@ -22,6 +21,4 @@ try {
 } catch (PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
 }
-?>
-
 ?>
