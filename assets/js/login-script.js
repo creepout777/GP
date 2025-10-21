@@ -1,7 +1,7 @@
 // Éléments DOM
 const themeToggle = document.getElementById('theme-toggle');
 const themeIcon = themeToggle.querySelector('i');
-const loginForm = document.getElementById('login-form');
+// Removed loginForm reference as we no longer attach a JS submit listener to it.
 const registerLink = document.getElementById('register-link');
 
 // Gestion du dark mode
@@ -28,45 +28,15 @@ function toggleTheme() {
     }
 }
 
-// Simulation de connexion
-function handleLogin(event) {
-    event.preventDefault();
-    
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const remember = document.getElementById('remember').checked;
-
-    // Simulation de validation
-    if (email && password) {
-        // Afficher un message de succès
-        alert(`Connexion réussie !\nEmail: ${email}\nSe souvenir: ${remember ? 'Oui' : 'Non'}`);
-        
-        // Redirection vers la page principale (simulée)
-        setTimeout(() => {
-            window.location.href = 'todo-app.html'; // Remplacez par l'URL de votre app principale
-        }, 1000);
-    } else {
-        alert('Veuillez remplir tous les champs');
-    }
-}
+// *** The handleLogin function has been removed entirely ***
+// This function contained the 'event.preventDefault()' which broke PHP submission 
+// and the 'window.location.href = 'todo-app.html'' redirect.
 
 // Initialisation
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
-});
-
-// Événements
-themeToggle.addEventListener('click', toggleTheme);
-loginForm.addEventListener('submit', handleLogin);
-
-registerLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    alert('Fonctionnalité d\'inscription à implémenter');
-});
-
-// Animation au chargement
-document.addEventListener('DOMContentLoaded', () => {
-    // Check if the login-card exists before trying to manipulate its style
+    
+    // Animation au chargement
     const loginCard = document.querySelector('.login-card');
     if (loginCard) {
         loginCard.style.opacity = '0';
@@ -79,3 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 100);
     }
 });
+
+// Événements
+themeToggle.addEventListener('click', toggleTheme);
+
+// *** The loginForm.addEventListener('submit', handleLogin) line has been removed ***
+

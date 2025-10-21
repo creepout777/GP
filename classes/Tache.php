@@ -1,7 +1,5 @@
 <?php
-// Tache.php
-// Classe Tache : contient les attributs et les fonctions CRUD pour les tâches
-require_once __DIR__ . '/../includes/config/Database.php';
+require_once __DIR__ . '/../includes/config.php';
 
 class Tache {
     private $conn;
@@ -18,6 +16,7 @@ class Tache {
         $this->conn = $db;
     }
 
+    // Add task
     public function ajouterTache() {
         $query = "INSERT INTO " . $this->table_name . "
                   (titre, description, priorite, status, utilisateurId)
@@ -25,7 +24,8 @@ class Tache {
         $stmt = $this->conn->prepare($query);
 
         $stmt->bindParam(':titre', $this->titre);
-        $stmt->bindParam(':description', $this->description);
+        // Bind description as NULL if empty
+        $stmt->bindValue(':description', $this->description ?: null, PDO::PARAM_NULL);
         $stmt->bindParam(':priorite', $this->priorite);
         $stmt->bindParam(':status', $this->status);
         $stmt->bindParam(':utilisateurId', $this->utilisateurId);
@@ -33,44 +33,51 @@ class Tache {
         return $stmt->execute();
     }
 
+    // Edit task
     public function modifierTache() {
         $query = "UPDATE " . $this->table_name . "
                   SET titre = :titre, description = :description,
                       priorite = :priorite, status = :status
-                  WHERE id = :id";
+                  WHERE id = :id AND utilisateurId = :utilisateurId";
         $stmt = $this->conn->prepare($query);
 
         $stmt->bindParam(':titre', $this->titre);
-        $stmt->bindParam(':description', $this->description);
+        $stmt->bindValue(':description', $this->description ?: null, PDO::PARAM_NULL);
         $stmt->bindParam(':priorite', $this->priorite);
         $stmt->bindParam(':status', $this->status);
         $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':utilisateurId', $this->utilisateurId);
 
         return $stmt->execute();
     }
 
+    // Delete task
     public function supprimerTache() {
-        $query = "DELETE FROM " . $this->table_name . " WHERE id = :id";
+        $query = "DELETE FROM " . $this->table_name . " WHERE id = :id AND utilisateurId = :utilisateurId";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':utilisateurId', $this->utilisateurId);
         return $stmt->execute();
     }
 
+    // Get single task
     public function getTacheById() {
-        $query = "SELECT * FROM " . $this->table_name . " WHERE id = :id";
+        $query = "SELECT * FROM " . $this->table_name . " WHERE id = :id AND utilisateurId = :utilisateurId";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':utilisateurId', $this->utilisateurId);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    // Get all tasks for user
     public function getAllTache() {
-        $query = "SELECT * FROM " . $this->table_name . " WHERE utilisateurId = :utilisateurId";
+        $query = "SELECT * FROM " . $this->table_name . " WHERE utilisateurId = :utilisateurId ORDER BY created_at DESC";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':utilisateurId', $this->utilisateurId);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
-
 ?>
+
